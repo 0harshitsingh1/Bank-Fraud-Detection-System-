@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 
-@FeignClient(name = "account-service", url = "${account.service.url}")
+@FeignClient(name = "account-service",
+        url = "${account.service.url:http://localhost:8081}")
 public interface AccountServiceClient {
 
 

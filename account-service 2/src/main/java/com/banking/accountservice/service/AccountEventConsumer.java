@@ -1,4 +1,4 @@
-package com.banking.accountservice.Service;
+package com.banking.accountservice.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.Objects;
 //@NoArgsConstructor
 public class AccountEventConsumer {
 
-    private final com.banking.accountservice.Service.AccountService accountService;
+    private final com.banking.accountservice.service.AccountService accountService;
     /**
      * Consume transaction. Complete event from kafka
      * Credits receiver Account

@@ -2,11 +2,6 @@ spring:
   application:
     name: fraud-detection-service
 
-  fraud:
-    max-transaction-per-minute: 5
-    suspicious-amount-multiplier: 5
-    max-balance-percentage: 0.90
-
   data:
     redis:
       host: localhost
@@ -15,11 +10,22 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group id: account-service-group
+
+      group-id: fraud-detection-group
+
       auto-offset-reset: earliest
+
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.KsonDeserializer
+
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+
       properties:
+
+        "[spring.json.trusted.packages]": "*"
+
+        "[spring.json.use.type.headers]": false
+
+        "[spring.json.value.default.type]": java.util.HashMap
         spring:
           json:
             trusted:
@@ -27,23 +33,28 @@ spring:
             use:
               type:
                 headers: false
-          value:
-            default:
-              type: java.util.HashMap
+        spring.json.value.default.type: java.util.HashMap
+
     producer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.KsonDeserializer
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
 
-    server:
-      port: 8084
+server:
+  port: 8084
 
-    # Account Service URL for Feign Client
-    account:
-      service:
-        url: http://localhost:8081
+# Fraud configuration
+fraud:
+  max-transaction-per-minute: 5
+  suspicious-amount-multiplier: 5
+  max-balance-percentage: 0.90
 
-    management:
-      endpoints:
-        web:
-          exposure:
-            include: health, info
+# Account service URL
+account:
+  service:
+    url: http://localhost:8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
