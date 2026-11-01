@@ -1,11 +1,10 @@
 package com.banking.frauddetectionservice.service;
 
-
 import com.banking.frauddetectionservice.client.AccountServiceClient;
 import com.banking.frauddetectionservice.model.FraudCheckResult;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,7 @@ public class FraudDetectionService {
 
         if(result.isFraud()){
             log.info("Suspicious activity detected - account: {}" +
-                    "reason: {} - requesting OTP Verification",
+                            "reason: {} - requesting OTP Verification",
                     accountNumber, result.getReason());
 
             Map<String, Object> verificationEvent = new HashMap<>();
@@ -60,12 +59,12 @@ public class FraudDetectionService {
             verificationEvent.put("accountNumber", accountNumber);
             verificationEvent.put("amount", amount);
             verificationEvent.put("reason", result.getReason());
-            
+
             kafkaTemplate.send(VERIFICATION_REQUIRED_TOPIC, transactionId, verificationEvent);
         }else {
             // Transaction is clean
             log.info("Transaction clean");
-            
+
             Map<String, Object> transactionCleanEvent = new HashMap<>();
             transactionCleanEvent.put("transactionId", transactionId);
             transactionCleanEvent.put("isFraud", false);

@@ -1,6 +1,6 @@
 package com.banking.accountservice.controller;
 
-import com.banking.accountservice.Service.AccountService;
+import com.banking.accountservice.service.AccountService;
 import com.banking.accountservice.dto.AccountResponse;
 import com.banking.accountservice.dto.CreateAccountRequest;
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<AccountResponse> createAccount (
             @Valid @RequestBody CreateAccountRequest request) {
 

@@ -18,8 +18,8 @@ spring:
 
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/transaction_db
-    password: Harshit@123
+    url: jdbc:mysql://localhost:3307/transaction_db?createDatabaseIfNotExist=true
+    password: Student@123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -41,8 +41,8 @@ server:
 
 # Razorpay Configuration
 razorpay:
-  key-id: rzp_test_TsAqfR1qGwm3yL
-  key-secret: TrQhKlM6TWQhn0XXDTpHNtJH
+  key-id: rzp_test_TuCJIHTzhJHgR8
+  key-secret: Vt9q2aeYet7MSfkTlsnhpHDO
   webhook-secret:
 
 
