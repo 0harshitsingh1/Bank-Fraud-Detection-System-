@@ -1,70 +1,52 @@
-Bank-Fraud-Detection-System
-Project Overview
-The Bank Fraud Detection System is an enterprise-grade, distributed microservices application built with Spring Boot and Spring Cloud. Designed to address the increasing sophistication of financial crimes, this system monitors, analyzes, and evaluates financial transactions in real-time. By segmenting core banking functions into decoupled microservices, it ensures high availability, fault isolation, independent scalability, and secure routing across the entire banking pipeline.
+# Bank Fraud Detection System
 
-Complete Architecture & Microservices Detail
-The application is structured into several specialized services that communicate seamlessly to process transactions securely:
+An enterprise-grade, distributed microservices banking application built with **Spring Boot** and **Spring Cloud**, designed to monitor, analyze, and detect fraudulent financial transactions in real-time.
 
-API Gateway (api-gateway)
+---
 
-Acts as the single entry point for all incoming client traffic.
+## 🏗️ Architecture & Microservices
 
-Handles centralized request routing, security and authorization filters, rate limiting, and load balancing across downstream microservices.
+The application follows a decoupled microservices pattern to ensure fault isolation, high availability, and independent scalability:
 
-Account Service (account-service)
+* **`api-gateway`**: Acts as the single entry point for all client traffic, handling centralized routing, security filters, rate-limiting, and load balancing.
+* **`account-service`**: Manages customer profiles, account standings, and balance verification.
+* **`transaction-service`**: Captures, logs, and tracks all financial transactions initiated across the platform for audit and compliance trails.
+* **`payment-service`**: Executes secure fund transfers and coordinates transactional handoffs.
+* **`fraud-detection-service`**: The core analytical engine that evaluates incoming transaction payloads against predefined rules, velocity checks, and risk patterns to flag suspicious activities instantaneously.
+* **`notifications-service`**: Dispatches automated real-time alerts and receipts (via SMS/Email) to users and administrators upon detecting high-risk or successful transactions.
 
-Manages customer profile information, bank account statuses, and balance checks.
+---
 
-Exposes APIs for opening accounts, verifying account standing, and updating states securely.
+## 🚀 Key Features & Capabilities
 
-Transaction Service (transaction-service)
+* **Real-Time Fraud Evaluation:** Automated rule-based inspection that immediately intercepts and flags high-risk transfers before completion.
+* **Decoupled Microservices Design:** Prevents system-wide bottlenecks, allowing individual services to scale independently under heavy load.
+* **Centralized API Routing:** Unified management of cross-cutting concerns, security policies, and endpoint routing.
+* **Containerized Deployment:** Fully orchestrated using **Docker Compose** to instantly spin up the entire multi-service ecosystem.
 
-Captures, logs, and tracks all financial transactions initiated by users.
+---
 
-Maintains comprehensive historical logs of every transfer or deposit request for audit and compliance trails.
+## 🛠️ Tech Stack
 
-Payment Service (payment-service)
+* **Language:** Java
+* **Frameworks:** Spring Boot, Spring Cloud, Spring Cloud Gateway
+* **Containerization:** Docker & Docker Compose
+* **Build Tools:** Maven / Gradle
+* **Version Control:** Git & GitHub
 
-Executes secure fund transfers between accounts.
+---
 
-Coordinates execution handoffs with the transaction and fraud detection layers before funds are finally settled.
+## ⚙️ Getting Started & Installation
 
-Fraud Detection Service (fraud-detection-service)
+### Prerequisites
+* JDK 17+ or compatible
+* Maven / Gradle
+* Docker & Docker Compose
 
-The core analytical engine of the platform.
+### Running Locally with Docker Compose
+Clone the repository and spin up the complete microservices stack with a single command:
 
-Evaluates incoming transactions against predefined risk criteria, historical patterns, and velocity checks to catch and flag suspicious behavior instantaneously.
-
-Notifications Service (notifications-service)
-
-Dispatches alerts, warnings, and receipts (via SMS, email, or push notifications) to users and system administrators.
-
-Triggers immediately upon the detection of high-risk transactions or successful financial operations.
-
-Detailed Features & Capabilities
-Real-Time Fraud Evaluation: Automated rule-based analysis that inspects transaction payloads immediately, allowing high-risk transfers to be blocked or held for manual review before completion.
-
-Decoupled Microservices Design: Independent services prevent system-wide bottlenecks; if one component experiences heavy load, only that specific service scales.
-
-Centralized API Routing: Security policies, endpoint routing rules, and cross-cutting concerns are managed uniformly at the Gateway level.
-
-Robust Transaction Lifecycle Tracking: Full visibility into transactions from the moment of initiation through payment processing, fraud screening, and final notification delivery.
-
-Containerized Deployment: Orchestrated using Docker Compose to instantly spin up all microservices and their networking dependencies with a single command.
-
-Tech Stack
-Programming Language: Java (100%)
-
-Frameworks & Ecosystem:
-
-Spring Boot
-
-Spring Cloud (for distributed microservices coordination)
-
-Spring Cloud Gateway (for API routing)
-
-Containerization: Docker, Docker Compose
-
-Build Tools: Maven / Gradle
-
-Version Control: Git & GitHub
+```bash
+git clone [https://github.com/0harshitsingh1/Bank-Fraud-Detection-System-.git](https://github.com/0harshitsingh1/Bank-Fraud-Detection-System-.git)
+cd Bank-Fraud-Detection-System-
+docker-compose up --build
