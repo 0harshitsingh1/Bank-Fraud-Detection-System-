@@ -1,37 +1,3 @@
-#spring:
-#  application:
-#    name: notifications-service
-#
-#    kafka:
-#      bootstrap-servers: localhost:9092
-#      consumer:
-#        group id: account-service-group
-#        auto-offset-reset: earliest
-#        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#        value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
-#        properties:
-#          spring:
-#            json:
-#              trusted:
-#                packages: "*"
-#              use:
-#                type:
-#                  headers: false
-#            value:
-#              default:
-#                type: java.util.HashMap
-#      producer:
-#        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#        value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
-#
-#      server:
-#        port: 8085
-#
-#      management:
-#        endpoints:
-#          web:
-#            exposure:
-#              include: health, info
 spring:
   application:
     name: notifications-service

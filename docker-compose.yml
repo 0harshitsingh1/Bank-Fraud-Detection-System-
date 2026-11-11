@@ -15,9 +15,10 @@ services:
     image: mysql:8.0
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "Student@123"
+      MYSQL_ROOT_PASSWORD: "Harshit@123"
     ports:
-      - "3307:3306"
+      - "3307
+      :3306"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:

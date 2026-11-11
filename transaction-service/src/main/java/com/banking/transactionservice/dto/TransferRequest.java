@@ -2,6 +2,7 @@ package com.banking.transactionservice.dto;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class TransferRequest {
     @NotBlank(message = "Receiver account number is required")
     private String receiverAccountNumber;
 
-    @NotBlank(message = "Account is required")
+    @NotNull(message = "Account is required")
     @Positive(message = "Amount must be positive")
     private BigDecimal amount;
 

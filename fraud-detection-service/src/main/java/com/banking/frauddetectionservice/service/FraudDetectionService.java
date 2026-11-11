@@ -38,17 +38,21 @@ public class FraudDetectionService {
 
 
     public void checkTransaction(Map<String, Object> payload) {
+        log.info("========== FRAUD CHECK STARTED ==========");
         String transactionId = (String)payload.get("transactionId");
         String accountNumber = (String)payload.get("senderAccountNumber");
+        log.info("Transaction ID: {}", transactionId);
+        log.info("Account Number: {}", accountNumber);
         BigDecimal amount = new BigDecimal(payload.get("amount").toString());
-
+        log.info("Before fetching account balance");
         //Fetch the real balance from Amount Service
         BigDecimal senderBalance = accountServiceClient.getBalance(accountNumber);
+        log.info("After fetching account balance: {}", senderBalance);
 
         log.info("Checking transaction: {} account: {} amount: {} balance: {}", transactionId, accountNumber, amount, senderBalance);
 
         FraudCheckResult result = performFraudChecks(accountNumber, amount, senderBalance);
-
+        log.info("Fraud checks completed. Is fraud: {}", result.isFraud());
         if(result.isFraud()){
             log.info("Suspicious activity detected - account: {}" +
                             "reason: {} - requesting OTP Verification",
@@ -80,6 +84,9 @@ public class FraudDetectionService {
                                                 BigDecimal senderBalance) {
 
         // PATTERN 1 - VELOCITY CHECK
+        log.info("========== PERFORMING FRAUD CHECKS ==========");
+
+        log.info("Starting velocity check");
 
         if(isVelocityExceeded(accountNumber)){
             return  new FraudCheckResult(true, "Too many transaction in 60 seconds"+ "- Velocity limit exceeded");
@@ -94,13 +101,17 @@ public class FraudDetectionService {
         if(senderBalance.compareTo(BigDecimal.ZERO) > 0 && isBalanceCheckFailed(senderBalance, amount)) {
             return new FraudCheckResult(true, "Transaction exceed 90% of account balance");
         }
+        log.info("Velocity check completed");
 
         return new FraudCheckResult(false, null);
     }
 
     private boolean isVelocityExceeded(String accountNumber) {
+        log.info("========== REDIS VELOCITY CHECK STARTED ==========");
         String key = "fraud:velocity" + accountNumber;
         Long count = redisTemplate.opsForValue(). increment(key);
+        log.info("Redis key: {}", key);
+        log.info("Redis count: {}", count);
 
         if(count != null && count == 1) {
             redisTemplate.expire(key, 60, TimeUnit.SECONDS);

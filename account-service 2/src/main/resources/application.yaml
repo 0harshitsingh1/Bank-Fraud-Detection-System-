@@ -3,8 +3,8 @@ spring:
     name: account-service
   datasource:
     url: jdbc:mysql://localhost:3307/account_db?createDatabaseIfNotExist=true
-    username: root
-    password: Student@123
+    username: banking_admin
+    password: Harshit@123
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
